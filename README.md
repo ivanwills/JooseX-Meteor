@@ -4,7 +4,7 @@ Name
 ====
 
 
-JooseX.Meteor - a trait, turning your class into singleton
+JooseX.Meteor - Roles/traits to simplify Joose and Meteor integration.
 
 
 SYNOPSIS
@@ -22,35 +22,16 @@ SYNOPSIS
         }
     })
 
+    // Explicitly add calls to EJSON
+    Meteor.addEJSON(Some.Class);
+
+    // The first call to create a new object will add the class to EJSON's types
+    // if hasn't already been done yet
     var instance1 = new Some.Class({
         attribute : 'value'
     })
 
-    var instance2 = new Some.Class()
-
-    //preferred way
-    var instance3 = Some.Class()
-
-    t.ok(instance1 == instance2 && instance2 == instance3, '3 ways to access a singleton instance - choose one')
-
-
-    //or equivalent declaration
-
-    Singleton("Some.Class", {
-
-        has : {
-            attribute   : null
-        },
-
-
-        methods : {
-
-            configure : function (params) {
-                this.attribute = params
-            }
-        }
-    })
-
+    //
 
 DESCRIPTION
 ===========
