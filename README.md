@@ -10,50 +10,46 @@ JooseX.Meteor - a trait, turning your class into singleton
 SYNOPSIS
 ========
 
-        Class("Some.Class", {
+    Class("Some.Class", {
 
-            trait : JooseX.Meteor,
+        trait : JooseX.Meteor.EJSON,
 
-            has : {
-                attribute   : null
-            },
+        has : {
+            attribute : { is : 'rw', trait : JooseX.Meteor.Attribute.Reactive }
+        },
+
+        methods : {
+        }
+    })
+
+    var instance1 = new Some.Class({
+        attribute : 'value'
+    })
+
+    var instance2 = new Some.Class()
+
+    //preferred way
+    var instance3 = Some.Class()
+
+    t.ok(instance1 == instance2 && instance2 == instance3, '3 ways to access a singleton instance - choose one')
 
 
-            methods : {
+    //or equivalent declaration
 
-                configure : function (params) {
-                }
+    Singleton("Some.Class", {
+
+        has : {
+            attribute   : null
+        },
+
+
+        methods : {
+
+            configure : function (params) {
+                this.attribute = params
             }
-        })
-
-        var instance1 = new Some.Class({
-            attribute : 'value'
-        })
-
-        var instance2 = new Some.Class()
-
-        //preferred way
-        var instance3 = Some.Class()
-
-        t.ok(instance1 == instance2 && instance2 == instance3, '3 ways to access a singleton instance - choose one')
-
-
-        //or equivalent declaration
-
-        Singleton("Some.Class", {
-
-            has : {
-                attribute   : null
-            },
-
-
-            methods : {
-
-                configure : function (params) {
-                    this.attribute = params
-                }
-            }
-        })
+        }
+    })
 
 
 DESCRIPTION
